@@ -13,6 +13,9 @@ import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutWomenRouteImport } from './routes/_layout/women'
 import { Route as LayoutMenRouteImport } from './routes/_layout/men'
+import { Route as LayoutKidsRouteImport } from './routes/_layout/kids'
+import { Route as LayoutCheckoutRouteImport } from './routes/_layout/checkout'
+import { Route as LayoutCartRouteImport } from './routes/_layout/cart'
 
 const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
@@ -33,13 +36,34 @@ const LayoutMenRoute = LayoutMenRouteImport.update({
   path: '/men',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutKidsRoute = LayoutKidsRouteImport.update({
+  id: '/kids',
+  path: '/kids',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutCheckoutRoute = LayoutCheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutCartRoute = LayoutCartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => LayoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRoute
+  '/cart': typeof LayoutCartRoute
+  '/checkout': typeof LayoutCheckoutRoute
+  '/kids': typeof LayoutKidsRoute
   '/men': typeof LayoutMenRoute
   '/women': typeof LayoutWomenRoute
 }
 export interface FileRoutesByTo {
+  '/cart': typeof LayoutCartRoute
+  '/checkout': typeof LayoutCheckoutRoute
+  '/kids': typeof LayoutKidsRoute
   '/men': typeof LayoutMenRoute
   '/women': typeof LayoutWomenRoute
   '/': typeof LayoutIndexRoute
@@ -47,16 +71,27 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteWithChildren
+  '/_layout/cart': typeof LayoutCartRoute
+  '/_layout/checkout': typeof LayoutCheckoutRoute
+  '/_layout/kids': typeof LayoutKidsRoute
   '/_layout/men': typeof LayoutMenRoute
   '/_layout/women': typeof LayoutWomenRoute
   '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/men' | '/women'
+  fullPaths: '/' | '/cart' | '/checkout' | '/kids' | '/men' | '/women'
   fileRoutesByTo: FileRoutesByTo
-  to: '/men' | '/women' | '/'
-  id: '__root__' | '/_layout' | '/_layout/men' | '/_layout/women' | '/_layout/'
+  to: '/cart' | '/checkout' | '/kids' | '/men' | '/women' | '/'
+  id:
+    | '__root__'
+    | '/_layout'
+    | '/_layout/cart'
+    | '/_layout/checkout'
+    | '/_layout/kids'
+    | '/_layout/men'
+    | '/_layout/women'
+    | '/_layout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -93,16 +128,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutMenRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/kids': {
+      id: '/_layout/kids'
+      path: '/kids'
+      fullPath: '/kids'
+      preLoaderRoute: typeof LayoutKidsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/checkout': {
+      id: '/_layout/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof LayoutCheckoutRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/cart': {
+      id: '/_layout/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof LayoutCartRouteImport
+      parentRoute: typeof LayoutRoute
+    }
   }
 }
 
 interface LayoutRouteChildren {
+  LayoutCartRoute: typeof LayoutCartRoute
+  LayoutCheckoutRoute: typeof LayoutCheckoutRoute
+  LayoutKidsRoute: typeof LayoutKidsRoute
   LayoutMenRoute: typeof LayoutMenRoute
   LayoutWomenRoute: typeof LayoutWomenRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutCartRoute: LayoutCartRoute,
+  LayoutCheckoutRoute: LayoutCheckoutRoute,
+  LayoutKidsRoute: LayoutKidsRoute,
   LayoutMenRoute: LayoutMenRoute,
   LayoutWomenRoute: LayoutWomenRoute,
   LayoutIndexRoute: LayoutIndexRoute,
