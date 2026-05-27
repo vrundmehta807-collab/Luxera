@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutWomenRouteImport } from './routes/_layout/women'
 import { Route as LayoutMenRouteImport } from './routes/_layout/men'
 
 const LayoutRoute = LayoutRouteImport.update({
@@ -22,6 +23,11 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutWomenRoute = LayoutWomenRouteImport.update({
+  id: '/women',
+  path: '/women',
+  getParentRoute: () => LayoutRoute,
+} as any)
 const LayoutMenRoute = LayoutMenRouteImport.update({
   id: '/men',
   path: '/men',
@@ -31,23 +37,26 @@ const LayoutMenRoute = LayoutMenRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRoute
   '/men': typeof LayoutMenRoute
+  '/women': typeof LayoutWomenRoute
 }
 export interface FileRoutesByTo {
   '/men': typeof LayoutMenRoute
+  '/women': typeof LayoutWomenRoute
   '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteWithChildren
   '/_layout/men': typeof LayoutMenRoute
+  '/_layout/women': typeof LayoutWomenRoute
   '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/men'
+  fullPaths: '/' | '/men' | '/women'
   fileRoutesByTo: FileRoutesByTo
-  to: '/men' | '/'
-  id: '__root__' | '/_layout' | '/_layout/men' | '/_layout/'
+  to: '/men' | '/women' | '/'
+  id: '__root__' | '/_layout' | '/_layout/men' | '/_layout/women' | '/_layout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -70,6 +79,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/women': {
+      id: '/_layout/women'
+      path: '/women'
+      fullPath: '/women'
+      preLoaderRoute: typeof LayoutWomenRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/men': {
       id: '/_layout/men'
       path: '/men'
@@ -82,11 +98,13 @@ declare module '@tanstack/react-router' {
 
 interface LayoutRouteChildren {
   LayoutMenRoute: typeof LayoutMenRoute
+  LayoutWomenRoute: typeof LayoutWomenRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutMenRoute: LayoutMenRoute,
+  LayoutWomenRoute: LayoutWomenRoute,
   LayoutIndexRoute: LayoutIndexRoute,
 }
 
@@ -99,3 +117,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
