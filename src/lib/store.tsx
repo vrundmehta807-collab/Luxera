@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { products as PRODUCTS } from "@/data/products";
 
 export type User = {
   fullName: string;
@@ -156,8 +157,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     },
     placeOrder(address) {
       const id = "ORD-" + Date.now().toString(36).toUpperCase();
-      // Total recalculated on placement using lazy import-free lookup via window cache
-      const total = (window as any).__cartTotal ?? 0;
+      const total = state.cart.reduce((sum, c) => {
+        const p = PRODUCTS.find((pp) => pp.id === c.productId);
+        return sum + (p ? p.price * c.qty : 0);
+      }, 0);
       const order: Order = {
         id,
         user: state.user?.fullName ?? "Guest",
