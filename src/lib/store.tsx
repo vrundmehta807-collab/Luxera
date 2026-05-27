@@ -156,11 +156,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     },
     placeOrder(address) {
       const id = "ORD-" + Date.now().toString(36).toUpperCase();
-      const { products } = require("@/data/products") as { products: Product[] };
-      const total = state.cart.reduce((sum, c) => {
-        const p = products.find((pp) => pp.id === c.productId);
-        return sum + (p ? p.price * c.qty : 0);
-      }, 0);
+      // Total recalculated on placement using lazy import-free lookup via window cache
+      const total = (window as any).__cartTotal ?? 0;
       const order: Order = {
         id,
         user: state.user?.fullName ?? "Guest",
