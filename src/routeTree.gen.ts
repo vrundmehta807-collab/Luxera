@@ -12,10 +12,18 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutWomenRouteImport } from './routes/_layout/women'
+import { Route as LayoutSignupRouteImport } from './routes/_layout/signup'
+import { Route as LayoutReviewsRouteImport } from './routes/_layout/reviews'
+import { Route as LayoutProfileRouteImport } from './routes/_layout/profile'
+import { Route as LayoutOrdersRouteImport } from './routes/_layout/orders'
 import { Route as LayoutMenRouteImport } from './routes/_layout/men'
+import { Route as LayoutLoginRouteImport } from './routes/_layout/login'
 import { Route as LayoutKidsRouteImport } from './routes/_layout/kids'
+import { Route as LayoutContactRouteImport } from './routes/_layout/contact'
 import { Route as LayoutCheckoutRouteImport } from './routes/_layout/checkout'
 import { Route as LayoutCartRouteImport } from './routes/_layout/cart'
+import { Route as LayoutAdminRouteImport } from './routes/_layout/admin'
+import { Route as LayoutAboutRouteImport } from './routes/_layout/about'
 
 const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
@@ -31,14 +39,44 @@ const LayoutWomenRoute = LayoutWomenRouteImport.update({
   path: '/women',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutSignupRoute = LayoutSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutReviewsRoute = LayoutReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutProfileRoute = LayoutProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutOrdersRoute = LayoutOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => LayoutRoute,
+} as any)
 const LayoutMenRoute = LayoutMenRouteImport.update({
   id: '/men',
   path: '/men',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutLoginRoute = LayoutLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => LayoutRoute,
+} as any)
 const LayoutKidsRoute = LayoutKidsRouteImport.update({
   id: '/kids',
   path: '/kids',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutContactRoute = LayoutContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => LayoutRoute,
 } as any)
 const LayoutCheckoutRoute = LayoutCheckoutRouteImport.update({
@@ -51,45 +89,115 @@ const LayoutCartRoute = LayoutCartRouteImport.update({
   path: '/cart',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutAdminRoute = LayoutAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutAboutRoute = LayoutAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => LayoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRoute
+  '/about': typeof LayoutAboutRoute
+  '/admin': typeof LayoutAdminRoute
   '/cart': typeof LayoutCartRoute
   '/checkout': typeof LayoutCheckoutRoute
+  '/contact': typeof LayoutContactRoute
   '/kids': typeof LayoutKidsRoute
+  '/login': typeof LayoutLoginRoute
   '/men': typeof LayoutMenRoute
+  '/orders': typeof LayoutOrdersRoute
+  '/profile': typeof LayoutProfileRoute
+  '/reviews': typeof LayoutReviewsRoute
+  '/signup': typeof LayoutSignupRoute
   '/women': typeof LayoutWomenRoute
 }
 export interface FileRoutesByTo {
+  '/about': typeof LayoutAboutRoute
+  '/admin': typeof LayoutAdminRoute
   '/cart': typeof LayoutCartRoute
   '/checkout': typeof LayoutCheckoutRoute
+  '/contact': typeof LayoutContactRoute
   '/kids': typeof LayoutKidsRoute
+  '/login': typeof LayoutLoginRoute
   '/men': typeof LayoutMenRoute
+  '/orders': typeof LayoutOrdersRoute
+  '/profile': typeof LayoutProfileRoute
+  '/reviews': typeof LayoutReviewsRoute
+  '/signup': typeof LayoutSignupRoute
   '/women': typeof LayoutWomenRoute
   '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteWithChildren
+  '/_layout/about': typeof LayoutAboutRoute
+  '/_layout/admin': typeof LayoutAdminRoute
   '/_layout/cart': typeof LayoutCartRoute
   '/_layout/checkout': typeof LayoutCheckoutRoute
+  '/_layout/contact': typeof LayoutContactRoute
   '/_layout/kids': typeof LayoutKidsRoute
+  '/_layout/login': typeof LayoutLoginRoute
   '/_layout/men': typeof LayoutMenRoute
+  '/_layout/orders': typeof LayoutOrdersRoute
+  '/_layout/profile': typeof LayoutProfileRoute
+  '/_layout/reviews': typeof LayoutReviewsRoute
+  '/_layout/signup': typeof LayoutSignupRoute
   '/_layout/women': typeof LayoutWomenRoute
   '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cart' | '/checkout' | '/kids' | '/men' | '/women'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/cart'
+    | '/checkout'
+    | '/contact'
+    | '/kids'
+    | '/login'
+    | '/men'
+    | '/orders'
+    | '/profile'
+    | '/reviews'
+    | '/signup'
+    | '/women'
   fileRoutesByTo: FileRoutesByTo
-  to: '/cart' | '/checkout' | '/kids' | '/men' | '/women' | '/'
+  to:
+    | '/about'
+    | '/admin'
+    | '/cart'
+    | '/checkout'
+    | '/contact'
+    | '/kids'
+    | '/login'
+    | '/men'
+    | '/orders'
+    | '/profile'
+    | '/reviews'
+    | '/signup'
+    | '/women'
+    | '/'
   id:
     | '__root__'
     | '/_layout'
+    | '/_layout/about'
+    | '/_layout/admin'
     | '/_layout/cart'
     | '/_layout/checkout'
+    | '/_layout/contact'
     | '/_layout/kids'
+    | '/_layout/login'
     | '/_layout/men'
+    | '/_layout/orders'
+    | '/_layout/profile'
+    | '/_layout/reviews'
+    | '/_layout/signup'
     | '/_layout/women'
     | '/_layout/'
   fileRoutesById: FileRoutesById
@@ -121,6 +229,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutWomenRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/signup': {
+      id: '/_layout/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof LayoutSignupRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/reviews': {
+      id: '/_layout/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof LayoutReviewsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/profile': {
+      id: '/_layout/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof LayoutProfileRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/orders': {
+      id: '/_layout/orders'
+      path: '/orders'
+      fullPath: '/orders'
+      preLoaderRoute: typeof LayoutOrdersRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/men': {
       id: '/_layout/men'
       path: '/men'
@@ -128,11 +264,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutMenRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/login': {
+      id: '/_layout/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LayoutLoginRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/kids': {
       id: '/_layout/kids'
       path: '/kids'
       fullPath: '/kids'
       preLoaderRoute: typeof LayoutKidsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/contact': {
+      id: '/_layout/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof LayoutContactRouteImport
       parentRoute: typeof LayoutRoute
     }
     '/_layout/checkout': {
@@ -149,23 +299,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutCartRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/admin': {
+      id: '/_layout/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof LayoutAdminRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/about': {
+      id: '/_layout/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof LayoutAboutRouteImport
+      parentRoute: typeof LayoutRoute
+    }
   }
 }
 
 interface LayoutRouteChildren {
+  LayoutAboutRoute: typeof LayoutAboutRoute
+  LayoutAdminRoute: typeof LayoutAdminRoute
   LayoutCartRoute: typeof LayoutCartRoute
   LayoutCheckoutRoute: typeof LayoutCheckoutRoute
+  LayoutContactRoute: typeof LayoutContactRoute
   LayoutKidsRoute: typeof LayoutKidsRoute
+  LayoutLoginRoute: typeof LayoutLoginRoute
   LayoutMenRoute: typeof LayoutMenRoute
+  LayoutOrdersRoute: typeof LayoutOrdersRoute
+  LayoutProfileRoute: typeof LayoutProfileRoute
+  LayoutReviewsRoute: typeof LayoutReviewsRoute
+  LayoutSignupRoute: typeof LayoutSignupRoute
   LayoutWomenRoute: typeof LayoutWomenRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutAboutRoute: LayoutAboutRoute,
+  LayoutAdminRoute: LayoutAdminRoute,
   LayoutCartRoute: LayoutCartRoute,
   LayoutCheckoutRoute: LayoutCheckoutRoute,
+  LayoutContactRoute: LayoutContactRoute,
   LayoutKidsRoute: LayoutKidsRoute,
+  LayoutLoginRoute: LayoutLoginRoute,
   LayoutMenRoute: LayoutMenRoute,
+  LayoutOrdersRoute: LayoutOrdersRoute,
+  LayoutProfileRoute: LayoutProfileRoute,
+  LayoutReviewsRoute: LayoutReviewsRoute,
+  LayoutSignupRoute: LayoutSignupRoute,
   LayoutWomenRoute: LayoutWomenRoute,
   LayoutIndexRoute: LayoutIndexRoute,
 }
